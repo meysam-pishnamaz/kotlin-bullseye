@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,15 +32,15 @@ fun GameScreen() {
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.weight(9f)
         ) {
-            Text("Put The Bullseye As Close As You Can To")
-            Text("89", fontSize = 32.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.instruction_text))
+            Text(stringResource(R.string.target_value), fontSize = 32.sp, fontWeight = FontWeight.Bold)
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("1", textAlign = TextAlign.Center, modifier = Modifier.padding(start = 16.dp))
+                Text(stringResource(R.string.min_value_text), textAlign = TextAlign.Center, modifier = Modifier.padding(start = 16.dp))
                 Slider(value = 0.5f, valueRange = 0.01f..1f, onValueChange = {}, modifier = Modifier.weight(1f))
-                Text("100", textAlign = TextAlign.Center, modifier = Modifier.padding(end = 16.dp))
+                Text(stringResource(R.string.max_value_text), textAlign = TextAlign.Center, modifier = Modifier.padding(end = 16.dp))
             }
             Button(onClick = {}) {
-                Text("Hit Me")
+                Text(stringResource(R.string.hit_me_button_text))
             }
         }
         Spacer(modifier = Modifier.weight(.5f))

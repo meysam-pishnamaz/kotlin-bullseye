@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">bullseye</string>
+    <string name="instruction_text">Put The Bullseye As Close As You Can To</string>
+    <string name="min_value_text">1</string>
+    <string name="max_value_text">100</string>
+    <string name="hit_me_button_text">Hit Me</string>
+    <string name="target_value">89</string>
 </resources>
