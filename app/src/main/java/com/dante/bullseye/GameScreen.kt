@@ -17,10 +17,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.dante.bullseye.ui.theme.BullseyeTheme
 
 @Composable
@@ -44,12 +42,7 @@ fun GameScreen() {
             verticalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.weight(9f)
         ) {
-            Text(stringResource(R.string.instruction_text))
-            Text(
-                stringResource(R.string.target_value),
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold
-            )
+            GamePrompt()
             TargetSlider(value = sliderValue, valueChanged = {value ->
                 sliderValue = value
             })
