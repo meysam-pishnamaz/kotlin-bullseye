@@ -9,10 +9,10 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun ResultDialog(
+fun ResultDialog(sliederValue: Int,
     hideDialog: () -> Unit, modifier: Modifier = Modifier
 ) {
-    AlertDialog(onDismissRequest = {
+    AlertDialog(modifier = modifier,onDismissRequest = {
         hideDialog()
     }, confirmButton = {
         TextButton(onClick = {
@@ -21,6 +21,6 @@ fun ResultDialog(
             Text(stringResource(id = R.string.result_dialog_button_text))
         }
     }, title = { Text(stringResource(id = R.string.result_dialog_title)) },
-        text = { Text(stringResource(id = R.string.result_dialog_message)) }
+        text = { Text(stringResource(id = R.string.result_dialog_message,sliederValue)) }
     )
 }

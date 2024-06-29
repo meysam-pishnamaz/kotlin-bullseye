@@ -10,8 +10,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,11 +25,12 @@ import com.dante.bullseye.ui.theme.BullseyeTheme
 
 @Composable
 fun GameScreen() {
-    var alertIsVisible by remember { mutableStateOf(false)}
-    var sliderValue by remember { mutableStateOf(0.5f)
+    var alertIsVisible by rememberSaveable { mutableStateOf(false)}
+    var sliderValue by rememberSaveable { mutableFloatStateOf(0.5f) }
+
+    val sliderToInt = (sliderValue * 100).toInt()
 
 
-    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -61,6 +63,7 @@ fun GameScreen() {
         Spacer(modifier = Modifier.weight(.5f))
         if (alertIsVisible){
             ResultDialog(
+                sliederValue = sliderToInt,
                 hideDialog = {alertIsVisible = false}
             )
         }
