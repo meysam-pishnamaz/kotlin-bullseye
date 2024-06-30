@@ -32,12 +32,9 @@ fun GameScreen() {
 
     fun pointsForCurrentRound(): Int {
         val maxScore = 100
-        var difference = if (sliderToInt > targetValue) {
-            sliderToInt - targetValue
-        } else if (sliderToInt < targetValue) {
-            targetValue - sliderToInt
-        }else {
-            0
+        var difference = targetValue - sliderToInt
+        if (difference < 0) {
+            difference *= -1
         }
 
         return maxScore - difference
