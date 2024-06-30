@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -26,9 +27,13 @@ import kotlin.random.Random
 fun GameScreen() {
     var alertIsVisible by rememberSaveable { mutableStateOf(false)}
     var sliderValue by rememberSaveable { mutableFloatStateOf(0.5f)}
-    var targetValue by rememberSaveable { mutableStateOf(Random.nextInt(from = 1, until = 100))}
+    var targetValue by rememberSaveable { mutableIntStateOf(Random.nextInt(from = 1, until = 100)) }
 
     val sliderToInt = (sliderValue * 100).toInt()
+
+    fun pointsForCurrentRound():Int{
+        return 999
+    }
 
 
 
@@ -58,7 +63,8 @@ fun GameScreen() {
         Spacer(modifier = Modifier.weight(.5f))
         if (alertIsVisible){
             ResultDialog(
-                sliederValue = sliderToInt,
+                sliderValue = sliderToInt,
+                points = pointsForCurrentRound(),
                 hideDialog = {alertIsVisible = false}
             )
         }
