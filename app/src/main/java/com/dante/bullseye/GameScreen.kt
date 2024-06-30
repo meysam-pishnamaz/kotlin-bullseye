@@ -1,6 +1,5 @@
 package com.dante.bullseye
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,14 +24,23 @@ import kotlin.random.Random
 
 @Composable
 fun GameScreen() {
-    var alertIsVisible by rememberSaveable { mutableStateOf(false)}
-    var sliderValue by rememberSaveable { mutableFloatStateOf(0.5f)}
+    var alertIsVisible by rememberSaveable { mutableStateOf(false) }
+    var sliderValue by rememberSaveable { mutableFloatStateOf(0.5f) }
     var targetValue by rememberSaveable { mutableIntStateOf(Random.nextInt(from = 1, until = 100)) }
 
     val sliderToInt = (sliderValue * 100).toInt()
 
-    fun pointsForCurrentRound():Int{
-        return 999
+    fun pointsForCurrentRound(): Int {
+        val maxScore = 100
+        var difference = if (sliderToInt > targetValue) {
+            sliderToInt - targetValue
+        } else if (sliderToInt < targetValue) {
+            targetValue - sliderToInt
+        }else {
+            0
+        }
+
+        return maxScore - difference
     }
 
 
@@ -50,22 +58,22 @@ fun GameScreen() {
             modifier = Modifier.weight(9f)
         ) {
             GamePrompt(value = targetValue)
-            TargetSlider(value = sliderValue, valueChanged = {value ->
+            TargetSlider(value = sliderValue, valueChanged = { value ->
                 sliderValue = value
             })
             Button(onClick = {
-                alertIsVisible = !alertIsVisible
-                Log.i("debug", alertIsVisible.toString())
+                alertIsVisible = true
+
             }) {
                 Text(stringResource(R.string.hit_me_button_text))
             }
         }
         Spacer(modifier = Modifier.weight(.5f))
-        if (alertIsVisible){
+        if (alertIsVisible) {
             ResultDialog(
                 sliderValue = sliderToInt,
                 points = pointsForCurrentRound(),
-                hideDialog = {alertIsVisible = false}
+                hideDialog = { alertIsVisible = false }
             )
         }
     }
