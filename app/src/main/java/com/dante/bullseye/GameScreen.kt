@@ -34,8 +34,6 @@ fun GameScreen() {
     fun pointsForCurrentRound(): Int {
         val maxScore = 100
         val difference = abs(targetValue - sliderToInt)
-
-
         return maxScore - difference
     }
 
