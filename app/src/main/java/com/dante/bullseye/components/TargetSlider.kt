@@ -1,4 +1,4 @@
-package com.dante.bullseye
+package com.dante.bullseye.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.dante.bullseye.R
 
 @Composable
 fun TargetSlider(
