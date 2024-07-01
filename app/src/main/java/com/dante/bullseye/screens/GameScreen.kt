@@ -40,13 +40,30 @@ fun GameScreen() {
     var totalScore by rememberSaveable { mutableIntStateOf(0) }
     var currentRound by rememberSaveable { mutableIntStateOf(1) }
 
+    fun differenceAmount() = abs(targetValue - sliderToInt)
+
+
     fun pointsForCurrentRound(): Int {
         val maxScore = 100
-        val difference = abs(targetValue - sliderToInt)
+        val difference = differenceAmount()
         return maxScore - difference
     }
 
+    fun alertTitle(): Int {
+        val difference = differenceAmount()
 
+        val title: Int = if (difference == 0) {
+            R.string.alert_title_1
+        } else if (difference < 5) {
+            R.string.alert_title_2
+        } else if (difference <= 10) {
+            R.string.alert_title_3
+        } else {
+            R.string.alert_title_4
+        }
+
+        return title
+    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -82,6 +99,7 @@ fun GameScreen() {
                 sliderValue = sliderToInt,
                 points = pointsForCurrentRound(),
                 hideDialog = { alertIsVisible = false },
+                dialogTitle = alertTitle(),
                 incrementRound = {
                     currentRound++
                     targetValue = Random.nextInt(from = 1, until = 100)

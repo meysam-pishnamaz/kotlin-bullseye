@@ -10,10 +10,15 @@ import com.dante.bullseye.R
 
 
 @Composable
-fun ResultDialog(sliderValue: Int,points:Int,
-    hideDialog: () -> Unit,incrementRound: () -> Unit, modifier: Modifier = Modifier
+fun ResultDialog(
+    sliderValue: Int,
+    points: Int,
+    dialogTitle: Int,
+    hideDialog: () -> Unit,
+    incrementRound: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    AlertDialog(modifier = modifier,onDismissRequest = {
+    AlertDialog(modifier = modifier, onDismissRequest = {
         hideDialog()
         incrementRound()
     }, confirmButton = {
@@ -23,7 +28,7 @@ fun ResultDialog(sliderValue: Int,points:Int,
         }) {
             Text(stringResource(id = R.string.result_dialog_button_text))
         }
-    }, title = { Text(stringResource(id = R.string.result_dialog_title)) },
-        text = { Text(stringResource(id = R.string.result_dialog_message,sliderValue,points)) }
+    }, title = { Text(stringResource(id = dialogTitle)) },
+        text = { Text(stringResource(id = R.string.result_dialog_message, sliderValue, points)) }
     )
 }
