@@ -1,10 +1,18 @@
 package com.dante.bullseye.components
 
+import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,21 +26,32 @@ import com.dante.bullseye.R
 
 
 @Composable
-fun GameDetail(modifier: Modifier = Modifier, round: Int = 1, totalScore: Int = 0,onStartOver:()->Unit) {
+fun GameDetail(
+    modifier: Modifier = Modifier,
+    round: Int = 1,
+    totalScore: Int = 0,
+    onStartOver: () -> Unit
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = modifier
     ) {
-        Button(onClick = {
-            onStartOver()
-        }) {
-            Text(text = stringResource(id = R.string.start_over))
+        FilledIconButton(
+            onClick = { onStartOver() },
+            colors = IconButtonDefaults.filledIconButtonColors(containerColor =  MaterialTheme.colorScheme.tertiary),
+            modifier = Modifier.size(50.dp)
+        ) {
+            Icon(Icons.Filled.Refresh, contentDescription = stringResource(id = R.string.restart_btn_desc))
         }
         GameInfo(label = stringResource(id = R.string.score_label), value = totalScore)
         GameInfo(label = stringResource(id = R.string.info), value = round)
-        Button(onClick = {}) {
-            Text(text = stringResource(id = R.string.info))
+        FilledIconButton(
+            onClick = { onStartOver() },
+            colors = IconButtonDefaults.filledIconButtonColors(containerColor =  MaterialTheme.colorScheme.tertiary),
+            modifier = Modifier.size(50.dp)
+        ) {
+            Icon(Icons.Filled.Info, contentDescription = stringResource(id = R.string.about_btn_desc))
         }
     }
 }
