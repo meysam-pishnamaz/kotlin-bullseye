@@ -47,7 +47,7 @@ fun GameDetail(
         GameInfo(label = stringResource(id = R.string.score_label), value = totalScore)
         GameInfo(label = stringResource(id = R.string.info), value = round)
         FilledIconButton(
-            onClick = { onStartOver() },
+            onClick = {},
             colors = IconButtonDefaults.filledIconButtonColors(containerColor =  MaterialTheme.colorScheme.tertiary),
             modifier = Modifier.size(50.dp)
         ) {
