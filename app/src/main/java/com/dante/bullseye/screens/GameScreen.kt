@@ -32,9 +32,10 @@ import kotlin.random.Random
 
 @Composable
 fun GameScreen() {
+    fun newTargetValue() = Random.nextInt(from = 1, until = 100)
     var alertIsVisible by rememberSaveable { mutableStateOf(false) }
     var sliderValue by rememberSaveable { mutableFloatStateOf(0.5f) }
-    var targetValue by rememberSaveable { mutableIntStateOf(Random.nextInt(from = 1, until = 100)) }
+    var targetValue by rememberSaveable { mutableIntStateOf(newTargetValue()) }
 
     val sliderToInt = (sliderValue * 100).toInt()
     var totalScore by rememberSaveable { mutableIntStateOf(0) }
@@ -53,8 +54,13 @@ fun GameScreen() {
             bonus = 50
         }
         return maxScore - difference + bonus
+    }
 
-
+    fun startNewGame() {
+        totalScore = 0
+        currentRound = 1
+        sliderValue = 0.5f
+        targetValue = newTargetValue()
     }
 
     fun alertTitle(): Int {
@@ -96,9 +102,12 @@ fun GameScreen() {
                 Text(stringResource(R.string.hit_me_button_text))
             }
             GameDetail(
+                modifier = Modifier.fillMaxWidth(),
                 round = currentRound,
                 totalScore = totalScore,
-                modifier = Modifier.fillMaxWidth()
+                onStartOver = {
+                    startNewGame()
+                }
             )
         }
         Spacer(modifier = Modifier.weight(.5f))
@@ -110,7 +119,7 @@ fun GameScreen() {
                 dialogTitle = alertTitle(),
                 incrementRound = {
                     currentRound++
-                    targetValue = Random.nextInt(from = 1, until = 100)
+                    targetValue = newTargetValue()
                 }
             )
         }

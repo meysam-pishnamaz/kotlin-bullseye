@@ -16,13 +16,15 @@ import com.dante.bullseye.R
 
 
 @Composable
-fun GameDetail(round: Int = 1, totalScore: Int = 0, modifier: Modifier = Modifier) {
+fun GameDetail(modifier: Modifier = Modifier, round: Int = 1, totalScore: Int = 0,onStartOver:()->Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = modifier
     ) {
-        Button(onClick = {}) {
+        Button(onClick = {
+            onStartOver()
+        }) {
             Text(text = stringResource(id = R.string.start_over))
         }
         GameInfo(label = stringResource(id = R.string.score_label), value = totalScore)
@@ -47,5 +49,5 @@ fun GameInfo(label: String, value: Int) {
 @Preview(showBackground = true)
 @Composable
 fun GameDetailPreview() {
-    GameDetail()
+    GameDetail(onStartOver = {})
 }
