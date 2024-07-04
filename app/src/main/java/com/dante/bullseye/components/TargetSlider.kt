@@ -1,10 +1,15 @@
 package com.dante.bullseye.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +45,18 @@ fun TargetSlider(
                     painter = painterResource(id = R.drawable.nub),
                     contentDescription = stringResource(R.string.slider_thumb_desc)
                 )
+            },
+            track = {
+                Box(modifier = modifier
+                    .height(8.dp)
+                    .fillMaxWidth()
+                    .background(
+                        color = MaterialTheme.colorScheme.primary,
+                        shape = MaterialTheme.shapes.small
+                    )
+                ) {
+
+                }
             }
         )
         Text(
