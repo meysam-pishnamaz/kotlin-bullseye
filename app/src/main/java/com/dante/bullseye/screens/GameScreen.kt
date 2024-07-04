@@ -1,6 +1,8 @@
 package com.dante.bullseye.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +21,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -81,52 +85,61 @@ fun GameScreen() {
         return title
     }
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center, modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Spacer(modifier = Modifier.weight(.5f))
+    Box {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.background),
+            contentScale = ContentScale.Crop,
+            contentDescription = stringResource(R.string.background_image)
+        )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.weight(9f)
+            verticalArrangement = Arrangement.Center, modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
-            GamePrompt(value = targetValue)
-            TargetSlider(value = sliderValue, valueChanged = { value ->
-                sliderValue = value
-            })
-            Button(onClick = {
-                alertIsVisible = true
-                totalScore += pointsForCurrentRound()
-            },
-                shape = MaterialTheme.shapes.medium,
-                contentPadding = PaddingValues(16.dp)
+            Spacer(modifier = Modifier.weight(.5f))
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.weight(9f)
             ) {
-                Text(stringResource(R.string.hit_me_button_text))
+                GamePrompt(value = targetValue)
+                TargetSlider(value = sliderValue, valueChanged = { value ->
+                    sliderValue = value
+                })
+                Button(
+                    onClick = {
+                        alertIsVisible = true
+                        totalScore += pointsForCurrentRound()
+                    },
+                    shape = MaterialTheme.shapes.medium,
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    Text(stringResource(R.string.hit_me_button_text))
+                }
+                GameDetail(
+                    modifier = Modifier.fillMaxWidth(),
+                    round = currentRound,
+                    totalScore = totalScore,
+                    onStartOver = {
+                        startNewGame()
+                    }
+                )
             }
-            GameDetail(
-                modifier = Modifier.fillMaxWidth(),
-                round = currentRound,
-                totalScore = totalScore,
-                onStartOver = {
-                    startNewGame()
-                }
-            )
-        }
-        Spacer(modifier = Modifier.weight(.5f))
-        if (alertIsVisible) {
-            ResultDialog(
-                sliderValue = sliderToInt,
-                points = pointsForCurrentRound(),
-                hideDialog = { alertIsVisible = false },
-                dialogTitle = alertTitle(),
-                incrementRound = {
-                    currentRound++
-                    targetValue = newTargetValue()
-                }
-            )
+            Spacer(modifier = Modifier.weight(.5f))
+            if (alertIsVisible) {
+                ResultDialog(
+                    sliderValue = sliderToInt,
+                    points = pointsForCurrentRound(),
+                    hideDialog = { alertIsVisible = false },
+                    dialogTitle = alertTitle(),
+                    incrementRound = {
+                        currentRound++
+                        targetValue = newTargetValue()
+                    }
+                )
+            }
         }
     }
 
