@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dante.bullseye.R
+import com.dante.bullseye.screens.AboutScreen
 
 
 @Composable
@@ -29,7 +30,9 @@ fun GameDetail(
     modifier: Modifier = Modifier,
     round: Int = 1,
     totalScore: Int = 0,
-    onStartOver: () -> Unit
+    onStartOver: () -> Unit,
+    onNavigateToAbout: () -> Unit
+
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -38,19 +41,27 @@ fun GameDetail(
     ) {
         FilledIconButton(
             onClick = { onStartOver() },
-            colors = IconButtonDefaults.filledIconButtonColors(containerColor =  MaterialTheme.colorScheme.tertiary),
+            colors = IconButtonDefaults.filledIconButtonColors(containerColor = MaterialTheme.colorScheme.tertiary),
             modifier = Modifier.size(50.dp)
         ) {
-            Icon(Icons.Filled.Refresh, contentDescription = stringResource(id = R.string.restart_btn_desc))
+            Icon(
+                Icons.Filled.Refresh,
+                contentDescription = stringResource(id = R.string.restart_btn_desc)
+            )
         }
         GameInfo(label = stringResource(id = R.string.score_label), value = totalScore)
         GameInfo(label = stringResource(id = R.string.info), value = round)
         FilledIconButton(
-            onClick = {},
-            colors = IconButtonDefaults.filledIconButtonColors(containerColor =  MaterialTheme.colorScheme.tertiary),
+            onClick = {
+                onNavigateToAbout()
+            },
+            colors = IconButtonDefaults.filledIconButtonColors(containerColor = MaterialTheme.colorScheme.tertiary),
             modifier = Modifier.size(50.dp)
         ) {
-            Icon(Icons.Filled.Info, contentDescription = stringResource(id = R.string.about_btn_desc))
+            Icon(
+                Icons.Filled.Info,
+                contentDescription = stringResource(id = R.string.about_btn_desc)
+            )
         }
     }
 }
@@ -72,5 +83,5 @@ fun GameInfo(label: String, value: Int) {
 @Preview(showBackground = true)
 @Composable
 fun GameDetailPreview() {
-    GameDetail(onStartOver = {})
+    GameDetail(onStartOver = {}, onNavigateToAbout = {})
 }
