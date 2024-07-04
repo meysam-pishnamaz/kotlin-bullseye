@@ -40,7 +40,7 @@ fun MainScreen() {
             }
         ) }
         composable("about"){AboutScreen(onNavigateToGame = {
-            navController.navigate("gamescreen")
+            navController.navigateUp()
         })}
     }
 }
