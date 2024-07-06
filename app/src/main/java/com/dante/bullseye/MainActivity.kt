@@ -35,7 +35,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    println("gigil gigil ${navController::class.java}")
     NavHost(navController = navController, startDestination = "gamescreen") {
         composable("gamescreen"){GameScreen(
             onNavigateToAbout = {
